@@ -21970,6 +21970,7 @@ var hue = require("node-hue-api");
 
 var Trafficlight = function () {
     this.trigger = $(".trafficlight");
+    this.triggerProcess = $(".trafficlight--process");
 
     this._init();
     this.bindEvents();
@@ -21981,10 +21982,11 @@ Trafficlight.prototype._init = function() {
     this.hostname = "169.254.8.238",
     this.username = "r1JXe-n8dCEIuZOUmAOukynlmwE4rKhYLyUz-Df0",
     api = new HueApi(this.hostname, this.username),
-    state = lightState.create();
+    state = lightState.create().on();
 
     this.red = 3;
     this.green = 4;
+    this.ease = 2000;
 
     this.simulation = {
         '3': $("#redlight"),
@@ -22048,6 +22050,10 @@ Trafficlight.prototype.bindEvents = function(status) {
             self.resetLights();
         }
     })
+
+    this.triggerProcess.on('click', function(){
+        self.processBuild();
+    });
 };
 
 Trafficlight.prototype.simulate = function(id, action) {
@@ -22081,7 +22087,7 @@ Trafficlight.prototype.lightToggle = function(id) {
         if (err) throw err;
 
         if( result.state.on ){
-            self.lightOff(id)
+            self.lightOff(id);
         } else {
             self.lightOn(id);
         }
@@ -22090,19 +22096,43 @@ Trafficlight.prototype.lightToggle = function(id) {
 
 Trafficlight.prototype.groupToggle = function() {
     var self = this;
-
+    // this.debug();
     api.lightStatus(this.red, function(err, red) {
         if (err) throw err;
 
-        if( red.state.on ){
-            self.lightOff(self.red);
-            self.lightOn(self.green);
+        if( red.state.bri > 6 ){
+            self.simulate(self.red, false);
+            self.simulate(self.green, true);
+            api.setLightState(self.red, state.on().brightness(2).transitionTime(this.ease))
+                .then(this.displayResult)
+                .fail(this.displayError)
+                .done();
+            api.setLightState(self.green, state.on().brightness(50).transitionTime(this.ease))
+                .then(this.displayResult)
+                .fail(this.displayError)
+                .done();
         } else {
-            self.lightOn(self.red);
-            self.lightOff(self.green);
+            self.simulate(self.red, true);
+            self.simulate(self.green, false);
+            api.setLightState(self.red, state.on().brightness(50).transitionTime(this.ease))
+                .then(this.displayResult)
+                .fail(this.displayError)
+                .done();
+            api.setLightState(self.green, state.on().brightness(2).transitionTime(this.ease))
+                .then(this.displayResult)
+                .fail(this.displayError)
+                .done();
         }
     });
 };
+
+Trafficlight.prototype.processBuild = function( counter ) {
+    self = this;
+    var gitlabProcess = setTimeout(function(){
+        self.groupToggle();
+        self.processBuild();
+    }, this.ease * 2);
+}
 
 
 new Trafficlight();

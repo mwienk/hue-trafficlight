@@ -23,9 +23,6 @@ body {
 .button-box {
   display: -ms-flexbox;
   display: flex;
-  position: absolute;
-  top: 50%;
   width: 100%;
-  transform: translateY(-50%);
   -ms-flex-pack: justify;
   justify-content: space-between; }
