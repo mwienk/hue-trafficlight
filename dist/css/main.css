@@ -1,0 +1,31 @@
+body {
+  padding: 0;
+  margin: 0; }
+
+.container {
+  position: relative;
+  width: 960px;
+  height: 100vh;
+  margin: 0 auto; }
+
+#greenlight {
+  fill: none;
+  transition: fill .3s ease-in-out; }
+  #greenlight.is-active {
+    fill: green; }
+
+#redlight {
+  fill: none;
+  transition: fill .3s ease-in-out; }
+  #redlight.is-active {
+    fill: red; }
+
+.button-box {
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
