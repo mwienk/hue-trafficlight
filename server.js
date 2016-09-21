@@ -28,9 +28,16 @@ function handleRequest(req, res){
 
         req.on('end', () => {
             var body = JSON.parse(whole);
-            trafficlight(body.object_attributes.status);
-            res.writeHead(200, 'OK', {'Content-Type': 'text/html'})
-            res.end('Data received.')
+            if(body.build_status === undefined) {
+               res.end('No valid request');
+               console.log("Invalid request");
+               console.log(body);
+            } else {
+               console.log(body);
+               trafficlight(body.build_status);
+               res.writeHead(200, 'OK', {'Content-Type': 'text/html'})
+               res.end('Data received.')
+            }
         })
     }
 }
@@ -46,7 +53,7 @@ function trafficlight(status) {
             .then(this.displayResult)
             .fail(this.displayError)
             .done();
-    } else if ( status == 'failed') {
+    } else if ( status == 'failed' || status == 'canceled' ) {
 
         api.setLightState(green, state.off())
             .then(this.displayResult)
