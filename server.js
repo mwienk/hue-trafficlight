@@ -4,7 +4,7 @@ var hue = require("node-hue-api");
 
 //Lets define a port we want to listen to
 const PORT=80;
-const hostname = '0.0.0.0';
+const hostname = '192.168.3.88';
 const username = "yihfLIhO66WQ1eittuR99CDuMlOS9MzCdNVGtCq9";
 
 //Hue api init
@@ -66,5 +66,5 @@ var server = http.createServer(handleRequest);
 //Lets start our server
 server.listen(PORT, function(){
     //Callback triggered when server is successfully listening. Hurray!
-    console.log("Server listening on: http://localhost:%s", PORT);
+    console.log("Server listening on: http://0.0.0.0:%s", PORT);
 });
