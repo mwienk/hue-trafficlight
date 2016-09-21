@@ -3,8 +3,8 @@ var http = require('http');
 var hue = require("node-hue-api");
 
 //Lets define a port we want to listen to
-const PORT=8080;
-const hostname = '192.168.3.88';
+const PORT=80;
+const hostname = '0.0.0.0';
 const username = "yihfLIhO66WQ1eittuR99CDuMlOS9MzCdNVGtCq9";
 
 //Hue api init
