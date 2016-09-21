@@ -4,34 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "start": "node server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "https://boschr@bitbucket.org/itmundi/itmundi-frontend.git"
+    "type": "git"
   },
   "author": "",
   "private": true,
   "license": "ISC",
   "devDependencies": {
-    "node-hue-api": "^2.2.0",
-    "del": "^1.2.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-browserify": "^0.5.1",
-    "gulp-css-globbing": "^0.1.8",
-    "gulp-html-tag-include": "^1.0.1",
-    "gulp-ignore": "^2.0.1",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-jshint": "^1.11.2",
-    "gulp-livereload": "^3.8.0",
-    "gulp-minify-css": "^1.1.6",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.1",
-    "gulp-uglify": "^1.2.0",
-    "gulp-util": "^3.0.5",
-    "gulp-watch": "^4.2.4",
-    "jquery": "^2.1.4",
-    "run-sequence": "^1.1.2"
+    "node-hue-api": "^2.2.0"
   }
 }
